@@ -30,23 +30,22 @@ Saint-Exupery">
 required="true" default_value="http://www.flashontap.com/fot/banners/animated/336x280.swf#" /> 
  
 <UserPref name="FlashWidth" display_name="Width for Flash" required="true"
-default_value="800" /> 
+default_value="336" /> 
  
 <UserPref name="FlashHeight" display_name="Height for Flash" required="true"
-default_value="600" /> 
+default_value="280" /> 
  
  
 <Content type="html"> 
 <![CDATA[ 
  
-><style type="text/css"> 
+<style type="text/css"> 
 body
 {
 padding: 0;
 margin: 0;
 background: transparent;
 }
- 
 </style> 
  
 <div id="flashcontainer" style="text-align: center; "></div> 
@@ -66,7 +65,6 @@ var s_fhe=_unesc(_trim(prefs.getString("FlashHeight")));
 // Play .swf file
 function displaySlide()
 {
- 
 // Play .swf file.
 _IG_EmbedFlash(s_fil, "flashcontainer", {
 swf_version: 6,
@@ -76,9 +74,7 @@ width: s_fwi,
 height: s_fhe
 })
 }
- 
- 
- 
+
 // When gadget first loads, display slide
 _IG_RegisterOnloadHandler(displaySlide);
  

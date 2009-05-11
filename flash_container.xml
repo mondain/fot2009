@@ -1,12 +1,11 @@
 <Module> 
 <ModulePrefs title="Flash Player Container"
 title_url="http://sites.google.com/site/annuairevin/"
-height="350"
-width="600"
+height="336"
+width="280"
 scrolling="false"
 directory_title="Flash Player Container"
-description="Flash Container. A Google Gadget to incorporate a Flash Player within
-Google Sites."
+description="Flash Container. A Google Gadget to incorporate a Flash Player within Google Sites."
 screenshot="http://winepic06.googlepages.com/gadget-flash_slideshow-screenshot.png"
 thumbnail="http://winepic06.googlepages.com/gadget-flash_slideshow-thumb.png"
 author="Philippe Chappuis"
@@ -16,26 +15,18 @@ author_location="Rolle Switzerland"
 author_link="http://philippe.chappuis.googlepages.com"
 author_photo="http://winepic02.googlepages.com/gadget-author-photo.png"
 author_aboutme="An Engineer who likes to develop for the Net and tastes wines"
-author_quote="A chief is a man who assumes responsibility. He says &quot;I was
- 
-beaten&quot; he does not say &quot;My men were beaten&quot; - Antoine de
- 
-Saint-Exupery"> 
+author_quote="A chief is a man who assumes responsibility. He says &quot;I was beaten&quot; he does not say &quot;My men were beaten&quot; - Antoine de Saint-Exupery"> 
  
 <Require feature="flash" /> 
  
 </ModulePrefs> 
  
-<UserPref name="File" display_name="File (*.swf)"
-required="true" default_value="http://www.flashontap.com/fot/banners/animated/336x280.swf#" /> 
+<UserPref name="File" display_name="File (*.swf)" required="true" default_value="http://www.flashontap.com/fot/banners/animated/336x280.swf#" /> 
  
-<UserPref name="FlashWidth" display_name="Width for Flash" required="true"
-default_value="336" /> 
+<UserPref name="FlashWidth" display_name="Width for Flash" required="true" default_value="336" /> 
  
-<UserPref name="FlashHeight" display_name="Height for Flash" required="true"
-default_value="280" /> 
- 
- 
+<UserPref name="FlashHeight" display_name="Height for Flash" required="true" default_value="280" /> 
+  
 <Content type="html"> 
 <![CDATA[ 
  
@@ -51,16 +42,13 @@ background: transparent;
 <div id="flashcontainer" style="text-align: center; "></div> 
  
 <script type="text/javascript"> 
- 
 // Global variables
  
 var prefs = new _IG_Prefs(__MODULE_ID__);
  
 var s_fil=_unesc(_trim(prefs.getString("File")));
- 
 var s_fwi=_unesc(_trim(prefs.getString("FlashWidth")));
 var s_fhe=_unesc(_trim(prefs.getString("FlashHeight")));
- 
  
 // Play .swf file
 function displaySlide()

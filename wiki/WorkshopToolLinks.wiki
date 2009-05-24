@@ -1,0 +1,35 @@
+#summary Links to tools used in the workshops.
+#labels links,tools,svn,workshop
+
+= Workshop Tools =
+
+*SVN clients*
+
+_OSX_
+
+[http://www.versionsapp.com/ Versions] ($54)
+
+
+_Windows_
+
+[http://tortoisesvn.com/ TortoiseSVN] (free)
+
+
+*IDE*
+
+_Java_
+
+[http://eclipse.org/ Eclipse]
+
+
+*SDK*
+
+_Java_
+
+[http://java.sun.com/javase/downloads/ Sun Java] (Windows, Unix)
+[http://developer.apple.com/java/download/ Apple Java]
+
+
+_Flex_
+
+[http://www.adobe.com/products/flex/flexdownloads/ Flex]

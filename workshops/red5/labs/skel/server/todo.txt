@@ -1,0 +1,26 @@
+
+1. Set JAVA_HOME environmental variable to point at your Java SDK directory
+
+2. Set RED5_HOME environmental variable to point at your Red5 directory
+
+3. Set a classpath variable named RED5 to point to your Red5 directory
+
+4. Change the text "myprojectname" to the name of your project in:
+.project
+.classpath
+build.xml
+ivy.xml
+.settings/org.eclipse.wst.common.component
+src/logback-myprojectname.xml (also replace in the file name)
+web/WEB-INF/web.xml
+web/WEB-INF/red5-web.xml
+web/WEB-INF/red5-web.properties
+
+5. Update the "web.handler" bean in red5-web.xml to match your application class file name
+
+
+
+
+
+
+

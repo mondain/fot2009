@@ -1,0 +1,12 @@
+
+1. Set FLEX_HOME environmental variable to point at your Flex SDK directory
+
+2. Change the text "myprojectname" to the name of your project in:
+.project
+.actionScriptProperties
+build.xml
+build.properties
+
+
+
+

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="center" verticalAlign="top" layout="absolute"
+	width="640" height="600"
+	applicationComplete="init()"	
+	xmlns:ns1="*" currentState="live" viewSourceURL="srcview/index.html">
+	<mx:Script source="functions.as"/>
+	<mx:states>
+		<mx:State name="live">
+			<mx:AddChild position="lastChild">
+				<mx:VBox x="15" y="41" height="352" horizontalAlign="center" verticalAlign="top" width="580">
+					<mx:HBox width="100%">
+						<mx:TextInput id="givenPath" text="rtmp://{hostString}/appserver283" width="253" cornerRadius="6"/>
+						<mx:Button id="connector" label="Connect" click="doConnection()" toolTip="{this.label}" width="92"/>
+						<mx:Canvas width="10" height="10" cornerRadius="20" id="indicatorOff" backgroundColor="#FF0000"/> 
+						<mx:Canvas width="10" height="10" cornerRadius="20" id="indicatorOn" backgroundColor="#00FF00" visible="false"/> 
+					</mx:HBox>
+					<mx:HBox width="100%">
+						<mx:Label text="User" fontWeight="bold"/>
+						<mx:TextInput width="130" text="1" id="userId"/>
+						<mx:Label text="Client id" fontWeight="bold"/>
+						<mx:TextInput id="clientIdbx" editable="false"  text="{clientId}" dataChange="{clientId}" width="123" maxChars="4"/>
+					</mx:HBox>
+					<mx:HBox width="100%">
+						<mx:Button label="Get Object" click="getObject()"/>
+						<mx:Button label="Set Object" click="setObject()"/>
+					</mx:HBox>
+					<mx:TextArea wordWrap="true" editable="false" width="100%" height="262" id="messages" verticalScrollPolicy="auto"/>
+				</mx:VBox>
+			</mx:AddChild>
+			<mx:SetProperty target="{label1}" name="x" value="210"/>
+			<mx:SetProperty target="{label1}" name="y" value="10"/>
+			<mx:SetProperty name="height" value="414"/>
+			<mx:SetProperty name="width" value="610"/>
+		</mx:State>
+	</mx:states>
+	<mx:Label text="APPSERVER-283 Tester" fontWeight="bold" fontSize="14" id="label1" x="239" y="6"/>
+</mx:Application>

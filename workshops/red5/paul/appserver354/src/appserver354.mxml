@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="constructProducer()">
+	<mx:Script>
+		<![CDATA[
+		
+			import mx.messaging.messages.AsyncMessage;
+
+			private var netConnection:NetConnection;
+			private var authenticationToken:String = "blah";
+
+            private function constructMessage(): AsyncMessage { 
+                var message: AsyncMessage = new AsyncMessage(); 
+                return message; 
+            } 
+
+            public function constructProducer(): void { 
+                trace("[ constructProducer() ] "); 
+                netConnection = new NetConnection(); 
+                netConnection.objectEncoding = flash.net.ObjectEncoding.AMF3; 
+                netConnection.client = this; 
+                netConnection.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler); 
+                netConnection.addEventListener(AsyncErrorEvent.ASYNC_ERROR, ayncErrorHandler); 
+                netConnection.connect("rtmp://localhost/appserver354/" + Math.floor(Math.random() * 1), authenticationToken); 
+                trace("[ constructProducer() ] after connecting"); 
+                
+				cvas.addEventListener(MouseEvent.MOUSE_OVER, mouseMove);
+	        } 
+
+            public function mouseMove(event:MouseEvent): void { 
+                sendMessage( { 
+                        type:event.type, 
+                        currentTarget:event.currentTarget.name, 
+                        currentTargetClass:event.currentTarget.className, 
+                        x:event.stageX, 
+                        y:event.stageY 
+                    }); 
+            } 
+
+
+            public function sendMessage( body:Object ): void { 
+            	trace("Sending message: " + body);
+                var message:AsyncMessage = constructMessage(); 
+                message.body = body; 
+                //trace("sending message [" + body + "]"); 
+                netConnection.call("sendMessage", null, authenticationToken, message ); 
+            }
+            
+            public function onBWDone():void {
+				// have to have this for an RTMP connection
+			}
+            
+            private function netStatusHandler(event:NetStatusEvent):void {
+				trace('Net status: '+event.info.code);
+            }
+            
+            private function ayncErrorHandler(e:AsyncErrorEvent):void {
+				trace('Async Error: '+e);
+			}
+            
+		]]>
+	</mx:Script>
+	<mx:Canvas x="10" y="10" width="420" height="373" id="cvas" backgroundColor="#FFFFFF">
+	</mx:Canvas>
+</mx:Application>

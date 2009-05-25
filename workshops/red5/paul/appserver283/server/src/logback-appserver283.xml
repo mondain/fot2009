@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="JIRA" class="ch.qos.logback.core.FileAppender">
+		<File>log/jira.log</File>
+		<Append>false</Append>
+		<Encoding>UTF-8</Encoding>
+		<BufferedIO>false</BufferedIO>
+		<ImmediateFlush>true</ImmediateFlush>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%date %-5level %logger - %msg%n</Pattern>
+		</layout>
+	</appender>
+	<root>
+		<appender-ref ref="JIRA" />
+	</root>	
+	<logger name="org.red5.jira">
+		<level value="DEBUG" />
+	</logger>		
+</configuration>

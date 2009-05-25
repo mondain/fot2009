@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	 applicationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+	
+			import flash.display.Loader;
+			import flash.events.*;
+			import flash.media.*;
+			import flash.net.*;
+			import flash.utils.ByteArray;
+			
+			import mx.controls.*;
+			import mx.core.*;
+			import mx.events.*;	
+				
+			import mx.graphics.ImageSnapshot;
+			import mx.graphics.codec.*;
+	
+			private var nc:NetConnection;
+			private var ns:NetStream;
+			
+			private var testSO:SharedObject;
+
+			public function onBWDone():void {
+			}
+			
+			public function onBWCheck(... rest):uint {
+				return 0;
+			}
+		
+			private function init():void {		
+				trace("Initialize");
+				//  create the netConnection
+				nc = new NetConnection();
+				nc.objectEncoding = ObjectEncoding.AMF3;
+				//  set it's client/focus to this
+				nc.client = this;		
+				// add listeners for netstatus and security issues
+				nc.addEventListener(NetStatusEvent.NET_STATUS, onStatus);
+				nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
+				nc.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+				nc.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
+				//
+			    nc.connect("rtmp://localhost/oflaDemo", null);
+			}
+			
+			public function onStatus(evt:NetStatusEvent):void {
+				if (evt.info !== '' || evt.info !== null) {	
+					switch (evt.info.code) {
+			        case "NetConnection.Connect.Success": 
+			        	trace("Connected");     
+			        	msg.text = "Connected";
+						ns = new NetStream(nc);
+						//ns.addEventListener(NetStatusEvent.NET_STATUS, onStatus);
+						//ns.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
+						ns.client = this;
+						//
+						testSO = SharedObject.getRemote("testso", nc.uri, false);
+						testSO.client = this;
+						testSO.addEventListener(SyncEvent.SYNC, onSync);
+						testSO.connect(nc);	
+						break;
+			        case "NetConnection.Connect.Failed":
+			        case "NetConnection.Connect.Rejected":
+			            Alert.show("Connect failed, check your settings or select a different protocol", "Error");
+			        	break;
+			        case "NetConnection.Connect.Closed":	                
+			        	trace("Disconnected");
+			        	msg.text = "Connected";
+			        	//
+			        	if (testSO) {
+			        		testSO.close();
+			        	}
+			   			// add listeners for netstatus and security issues
+						nc.removeEventListener(NetStatusEvent.NET_STATUS, onStatus);
+						nc.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
+						nc.removeEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+						nc.removeEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
+						break;
+					}			
+				}
+			}
+			
+			private function sendBytes():void {
+				trace("send bytes");
+				
+                var arr:ByteArray = Bitmap(imgSource.content).bitmapData.getPixels(new Rectangle(0, 0, imgSource.width, imgSource.height));		
+                trace("Byte array size: " + arr.length);
+                                
+  				var encoder:PNGEncoder = new PNGEncoder();			
+				var encBytes:ByteArray = encoder.encodeByteArray(arr, imgSource.width, imgSource.height);
+                trace("Byte array (encoded) size: " + encBytes.length);
+                
+				testSO.setProperty("imgbytes", encBytes);				
+			}
+			
+			private function onSync(event:SyncEvent):void {
+				trace("onSync code: " + event.changeList[0].code);
+				switch(event.changeList[0].code) {
+					case "success":
+						//from server	
+						trace("Target: " + event.target.data);
+						loadBytes(event.target.data["imgbytes"]);
+						break;
+					case "change":	
+						//from self
+						loadBytes(event.target.data["imgbytes"]);
+						break;
+					default:
+				}
+			}					
+					
+			private function loadBytes(ba:ByteArray):void {
+				var loader:Loader = new Loader();   
+				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onLoaded);
+				loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR , onLoadError);
+				//loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, onLoadProgress);
+				loader.loadBytes(ba);
+			}  			
+			
+			public function onLoaded(event:Event):void {
+				trace("Image loaded: " + event);
+				trace("Target: " + event.currentTarget);
+				
+				var bitmap:Bitmap = event.currentTarget.content as Bitmap;
+				imgDest.rawChildren.addChild(bitmap);
+			}         
+			        
+			public function onLoadError(e:IOErrorEvent):void {
+				trace("Load IOError: " + e);
+			}
+			
+			public function onLoadProgress(e:Event):void {
+			}	
+			
+			private function securityErrorHandler(e:SecurityErrorEvent):void {
+				Alert.show('Security Error: '+e, "Error");
+			}
+			
+			private function ioErrorHandler(e:IOErrorEvent):void {
+				Alert.show('IO Error: '+e, "Error");
+			}
+			
+			private function asyncErrorHandler(e:AsyncErrorEvent):void {
+				Alert.show('Async Error: '+e, "Error");
+			}	
+			
+		]]>
+	</mx:Script>
+	<mx:HBox x="42" y="33" width="660" horizontalAlign="center">
+		<mx:VBox height="100%" horizontalAlign="center" verticalAlign="top">
+			<mx:Image id="imgSource" 
+				width="320" height="240" 
+				autoLoad="true" scaleContent="true" 
+				source="assets/testimage.jpg"				
+				/>
+			<mx:Button label="Send Bytes" click="sendBytes()"/>
+		</mx:VBox>
+		<mx:VBox height="100%" horizontalAlign="center">
+			<mx:Canvas width="320" height="240" id="imgDest">
+			</mx:Canvas>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:Label x="42" y="7" id="msg"/>
+</mx:Application>

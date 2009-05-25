@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<contextName>shutdown</contextName>
+	
+	<jmxConfigurator contextName="shutdown" />
+
+	<appender name="SHUTDOWN" class="ch.qos.logback.core.FileAppender">
+		<File>log/shutdown.log</File>
+		<Append>false</Append>
+		<Encoding>UTF-8</Encoding>
+		<BufferedIO>false</BufferedIO>
+		<ImmediateFlush>true</ImmediateFlush>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>%d{ISO8601} %logger{35} %msg %n</Pattern>
+		</layout>
+	</appender>	
+	
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="SHUTDOWN" />
+	</root>
+
+	<logger name="org.red5.jira">
+		<level value="DEBUG" />
+	</logger>
+	
+</configuration>

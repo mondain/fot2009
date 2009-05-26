@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<contextName>myprojectname</contextName>
+	<contextName>multiplayer</contextName>
 	
-	<jmxConfigurator contextName="myprojectname" />
+	<jmxConfigurator contextName="multiplayer" />
 <!--
-	<appender name="myprojectname" class="ch.qos.logback.core.FileAppender">
-		<File>log/myprojectname.log</File>
+	<appender name="multiplayer" class="ch.qos.logback.core.FileAppender">
+		<File>log/multiplayer.log</File>
 		<Append>false</Append>
 		<Encoding>UTF-8</Encoding>
 		<BufferedIO>false</BufferedIO>
@@ -17,15 +17,15 @@
 	</appender>	
 -->
 	
-	<appender name="myprojectname" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>log/myprojectname.log</File>
+	<appender name="multiplayer" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>log/multiplayer.log</File>
 		<Append>false</Append>
 		<Encoding>UTF-8</Encoding>
 		<BufferedIO>false</BufferedIO>
 		<ImmediateFlush>true</ImmediateFlush>
 				
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-	      <FileNamePattern>myprojectname.%i.log</FileNamePattern>
+	      <FileNamePattern>multiplayer.%i.log</FileNamePattern>
 	      <MinIndex>1</MinIndex>
 	      <MaxIndex>10</MaxIndex>
 	    </rollingPolicy>
@@ -42,7 +42,7 @@
 	<root>
 		<level value="DEBUG" />
 		<appender-ref ref="CONSOLE" />
-		<appender-ref ref="myprojectname" />		
+		<appender-ref ref="multiplayer" />		
 	</root>
 	
 </configuration>

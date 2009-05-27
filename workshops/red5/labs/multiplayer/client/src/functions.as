@@ -23,7 +23,7 @@ public function init():void {
 			hostString = hostString.split(":")[0];
 		}
 	}
-	log('Host: ' + hostString);	
+	trace('Host: ' + hostString);	
 
 }
 

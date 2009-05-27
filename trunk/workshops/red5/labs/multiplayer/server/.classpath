@@ -6,5 +6,11 @@
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipsewtp.jst.server.generic.red5.runtimeClasspathProvider/Red5 Server Runtime"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="var" path="RED5/lib/slf4j-api-1.5.6.jar"/>
+	<classpathentry kind="var" path="RED5/lib/logback-classic-0.9.14.jar"/>
+	<classpathentry kind="var" path="RED5/lib/logback-core-0.9.14.jar"/>
+	<classpathentry kind="var" path="RED5/lib/spring-beans-2.5.6.jar"/>
+	<classpathentry kind="var" path="RED5/lib/spring-context-2.5.6.jar"/>
+	<classpathentry kind="var" path="RED5/lib/spring-core-2.5.6.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

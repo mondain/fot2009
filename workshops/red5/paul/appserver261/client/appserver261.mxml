@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="init()" width="350" height="116" backgroundGradientAlphas="[1.0, 1.0]" backgroundGradientColors="[#FFFCFC, #FFFCFC]">
+
+<mx:Script>
+<![CDATA[
+
+	import flash.net.NetConnection;
+	import flash.external.*;
+
+	[Bindable]
+	private var nc:NetConnection = null;
+
+	private function init():void {
+
+		NetConnection.defaultObjectEncoding = flash.net.ObjectEncoding.AMF0;	
+		nc = new NetConnection();
+		nc.objectEncoding = ObjectEncoding.AMF0;
+		nc.client = this;
+		nc.addEventListener(NetStatusEvent.NET_STATUS, netStatus);
+		nc.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);		
+	}
+
+	private function connect():void {
+		if (nc && nc.connected) {
+			nc.close();
+			nc = null;
+			connbtn.label = "Connect";	
+		} else {
+			nc.connect(txtURL.text);
+		}
+	}
+
+	private function netStatus (evt:NetStatusEvent):void {		    	
+		switch(evt.info.code) {
+		
+		case "NetConnection.Connect.Success":
+			simpleLabel.text="Connection success!"; 		
+			connbtn.label = "Disconnect";						
+			break;
+
+		case "NetConnection.Connect.Failed":
+			simpleLabel.text="Failed to connect";
+			break;
+
+		case "NetConnection.Connect.Rejected":
+			simpleLabel.text="Rejected";
+			break;
+
+		default:
+			simpleLabel.text= evt.info.code;
+		}		    	
+
+	}
+
+    private function asyncErrorHandler(event:AsyncErrorEvent):void {
+    }
+        
+    private function securityErrorHandler(event:SecurityErrorEvent):void {
+		simpleLabel.text= "securityErrorHandler: " + event;
+    }
+	
+	private function onMetaData(obj:Object):void {
+	}
+
+	private function onBWDone(obj:Object):void {
+	}
+
+]]>
+</mx:Script>
+
+<mx:Label x="5" y="10" fontSize="10" text="Red5 URL"/>
+<mx:TextInput x="73" y="8" width="267" text="rtmp:/appserver261" id="txtURL" fontSize="10" height="20"/>
+
+<mx:Button x="10" y="63" label="Connect" id="connbtn" click="connect();" width="90" fontSize="10" height="20"/>
+<mx:Label x="10" y="36" id="simpleLabel" fontSize="10" text=""/>
+
+
+</mx:Application>

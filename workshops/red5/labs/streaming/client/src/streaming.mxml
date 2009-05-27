@@ -3,5 +3,21 @@
 	width="640" height="600"
 	applicationComplete="init()"	
 	xmlns:ns1="*" viewSourceURL="srcview/index.html">
+	<!--
+		Simple publisher
+		@author Paul Gregoire (paul@infrared5.com)
+	-->
 	<mx:Script source="functions.as"/>
+	<mx:VBox x="10" y="43" height="400" horizontalAlign="center" verticalGap="8">
+		<mx:HBox width="100%">
+			<mx:TextInput id="location" text="rtmp://localhost/streaming" width="252"/>
+			<mx:Button label="Connect" id="connectBtn" click="connect()"/>
+		</mx:HBox>
+		<mx:Label id="publishDisplay" width="320" height="240" opaqueBackground="#000000"/>
+		<mx:HBox width="100%" horizontalAlign="center">
+			<mx:TextInput id="streamName" text="lab"/>
+			<mx:Button label="Publish" id="publishBtn" click="publish()"/>
+		</mx:HBox>		
+	</mx:VBox>
+	<mx:Label x="10" y="10" text="Publisher" fontWeight="bold" fontSize="16"/>
 </mx:Application>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.red5.logging.Red5LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
@@ -19,12 +20,8 @@ public class MyServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
        
-	private static Logger log;
-	
-	static {
-		log = Application.loggerContext.getLogger(MyServlet.class);
-	}
-	
+	private static Logger log = Red5LoggerFactory.getLogger(MyServlet.class, "paramdemo");
+
     /**
      * @see HttpServlet#HttpServlet()
      */

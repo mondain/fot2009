@@ -2,15 +2,12 @@ package org.gregoire.demo;
 
 import javax.servlet.ServletContext;
 
+import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.MultiThreadedApplicationAdapter;
 import org.red5.server.api.stream.IStreamAwareScopeHandler;
 import org.slf4j.Logger;
-import org.slf4j.impl.StaticLoggerBinder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
-
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.selector.ContextSelector;
 
 /**
  * Main application.
@@ -19,19 +16,8 @@ import ch.qos.logback.classic.selector.ContextSelector;
  */
 public class Application extends MultiThreadedApplicationAdapter implements	IStreamAwareScopeHandler {
 
-	private static Logger log;
-	
-	//provide the logger context for other parts of the app
-	public static LoggerContext loggerContext;
-	
-	static {
-	    ContextSelector selector = StaticLoggerBinder.SINGLETON.getContextSelector();
-	    //get the logger context for the servlet / app context
-	    loggerContext = selector.getLoggerContext("parameterdemo");
-	    //get the logger for this class only
-		log = loggerContext.getLogger(Application.class);
-	}
-	
+	private static Logger log = Red5LoggerFactory.getLogger(Application.class, "paramdemo");
+
 	public String getParameter(String paramName) {
 		//Grab a reference to the application context
 		ApplicationContext appCtx = getContext().getApplicationContext();

@@ -204,6 +204,34 @@ public function view():void {
 	}
 }	
 	
+private function changeCamera(evt:ListEvent):void {
+    camera = Camera.getCamera(evt.currentTarget.selectedIndex.toString());
+    if (camera) {
+    	trace("Camera changed to: " + camera.name);
+    	if (publisherVideo) {
+    		publisherVideo.attachCamera(null);
+    		publisherVideo.clear();
+    	}
+    	if (ns) {
+    		ns.attachCamera(null);
+    		ns.close();
+    	}
+    	callLater(setupCamera); 
+    }
+}
+
+private function changeMicrophone(evt:ListEvent):void {
+    mic = Microphone.getMicrophone(evt.currentTarget.selectedIndex);
+	if (mic) {
+    	trace("Microphone changed to: " + mic.name);		
+    	if (ns) {
+    		ns.attachAudio(null); 	
+    		ns.close();	
+    	}
+    	callLater(setupCamera); 
+  	}
+}	
+	
 public function securityErrorHandler(e:SecurityErrorEvent):void {
 	trace('Security Error: '+e);
 }

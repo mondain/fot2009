@@ -90,7 +90,9 @@ public function onStatus(evt:NetStatusEvent):void {
 			ns.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
 			ns.client = this;
 							
-			callLater(setupCamera);    				
+			if (currentState == 'publish') {
+				callLater(setupCamera);    		
+			}		
 			
 			break;
         case "NetStream.Publish.BadName":
@@ -192,6 +194,13 @@ public function publish():void {
 				ns.publish(streamName.text, "publish"); //publish, append, record
 			}
 		}
+	}
+}	
+	
+public function view():void {
+	//if we are connected
+	if (nc.connected) {
+		ns.play(streamName.text);
 	}
 }	
 	

@@ -20,6 +20,20 @@
 			<mx:AddChild position="lastChild">
 				<mx:Button x="265" y="389" label="View &gt;" click="currentState='view'"/>
 			</mx:AddChild>
+			<mx:SetProperty name="height" value="498"/>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="10" y="419" width="340">
+					<mx:Label text="Camera" fontWeight="bold"/>	
+					<mx:ComboBox change="changeCamera(event)" dataProvider="{Camera.names}"/>				
+				</mx:HBox>
+			</mx:AddChild>
+			<mx:SetProperty name="width" value="440"/>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="10" y="447" width="340">
+					<mx:Label text="Microphone" fontWeight="bold"/>	
+					<mx:ComboBox change="changeMicrophone(event)" dataProvider="{Microphone.names}"/>					
+				</mx:HBox>
+			</mx:AddChild>
 		</mx:State>
 		<mx:State name="view">
 			<mx:AddChild position="lastChild">

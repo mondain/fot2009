@@ -35,14 +35,28 @@ public class Application extends MultiThreadedApplicationAdapter implements
 		log.debug("setApplicationContext {}", Application.applicationContext);
 	}
 	
-	public void setObject(Foo foo) {
-		log.debug("Set object: {}", foo);
-		this.foo = foo;
+	public void setObject(Foo fooIn) {
+		log.debug("Set object: {}", fooIn);
+		this.foo = fooIn;
 	}
 
 	public Foo getObject() {
 		log.debug("Get object with no params");
-		return foo;
+		Foo fooOut = null;
+
+		//if we have a foo already set then return it
+		if (foo != null) {
+			fooOut = foo;
+		} else {
+			//create a new foo
+			fooOut = new Foo();
+			fooOut.setArray(new Object[]{"test1", "test2", "test3"});
+			fooOut.setId(42);
+			fooOut.setName("testfoo");
+			fooOut.setReady(true);
+		}
+
+		return fooOut;
 	}
 	
 	public Foo getObject(Foo foo2) {

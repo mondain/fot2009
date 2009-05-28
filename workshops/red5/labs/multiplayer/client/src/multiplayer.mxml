@@ -4,4 +4,29 @@
 	applicationComplete="init()"	
 	xmlns:ns1="*" viewSourceURL="srcview/index.html">
 	<mx:Script source="functions.as"/>
+	
+	<mx:VBox x="10" y="40" horizontalAlign="center" verticalGap="4" id="vbox1">
+		<mx:TextInput id="location" text="rtmp://localhost/multiplayer" width="240"/>
+	</mx:VBox>
+
+	<mx:Label x="10" y="10" text="Multiuser" fontWeight="bold" fontSize="16"/>		
+
+	<mx:Button x="255" y="40" label="Connect" id="connectBtn" click="connect()"/>		
+	
+	<mx:TextArea x="10" y="101" width="317" height="165" id="chatIn"
+	 	editable="false" verticalScrollPolicy="on" liveScrolling="true" 
+		valueCommit="chatIn.verticalScrollPosition=chatIn.maxVerticalScrollPosition"/>
+
+	<mx:Form x="7" y="274" id="chatCtrl" defaultButton="{send}" width="320" height="28" 
+		paddingTop="0" paddingLeft="0" horizontalScrollPolicy="off">
+		<mx:HBox width="100%">
+			<mx:TextInput width="258" id="chatOut"/>
+			<mx:Button id="send" label="Send" click="sendChat()"/>	
+		</mx:HBox>
+	</mx:Form>		
+	
+	<mx:TextInput x="81" y="71" text="{userName}" data="{userName}"/>
+	
+	<mx:Label x="10" y="73" text="Chatname" fontWeight="bold"/>
+
 </mx:Application>

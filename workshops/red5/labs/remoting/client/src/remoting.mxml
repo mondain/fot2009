@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="center" verticalAlign="top" layout="absolute"
-	width="640" height="600"
+	width="344" height="154"
 	applicationComplete="init()"	
 	xmlns:ns1="*" viewSourceURL="srcview/index.html">
 	<mx:Script source="functions.as"/>
+	
+	<mx:VBox x="10" y="40" horizontalAlign="center" verticalGap="4" id="vbox1">
+		<mx:TextInput id="location" text="rtmp://localhost/remoting" width="240"/>
+	</mx:VBox>
+
+	<mx:Label x="10" y="10" text="Remoting" fontWeight="bold" fontSize="16"/>		
+
+	<mx:Button x="255" y="40" label="Connect" id="connectBtn" click="connect()"/>	
+	
+	<mx:Button label="Get Object" click="getObject()" x="107" y="90"/>
+	<mx:Button label="Set Object" click="setObject()" x="13" y="90"/>
+	
 </mx:Application>

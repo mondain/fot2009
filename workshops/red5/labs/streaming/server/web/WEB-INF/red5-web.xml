@@ -45,6 +45,8 @@
 	<!--
 	Defines the web handler which acts as an applications endpoint
 	-->
+	<bean id="web.handler" class="com.flashontap.lab.streaming.Application"/>
+<!-- 
 	<bean id="web.handler" class="com.flashontap.lab.streaming.Application" init-method="init"/>
- 
+  -->
 </beans>

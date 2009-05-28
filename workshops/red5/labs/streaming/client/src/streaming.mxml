@@ -1,23 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="center" verticalAlign="top" layout="absolute"
-	width="640" height="600"
+	width="360" height="452"
 	applicationComplete="init()"	
-	xmlns:ns1="*" viewSourceURL="srcview/index.html">
+	xmlns:ns1="*" viewSourceURL="srcview/index.html" currentState="publish">
 	<!--
 		Simple publisher
 		@author Paul Gregoire (paul@infrared5.com)
 	-->
 	<mx:Script source="functions.as"/>
-	<mx:VBox x="10" y="43" height="400" horizontalAlign="center" verticalGap="8">
-		<mx:HBox width="100%">
-			<mx:TextInput id="location" text="rtmp://localhost/streaming" width="252"/>
-			<mx:Button label="Connect" id="connectBtn" click="connect()"/>
-		</mx:HBox>
-		<mx:Label id="publishDisplay" width="320" height="240" opaqueBackground="#000000"/>
-		<mx:HBox width="100%" horizontalAlign="center">
-			<mx:TextInput id="streamName" text="lab"/>
-			<mx:Button label="Publish" id="publishBtn" click="publish()"/>
-		</mx:HBox>		
+
+	<mx:states>
+		<mx:State name="publish">
+			<mx:AddChild position="lastChild">
+				<mx:VBox x="10" y="101" height="280" horizontalAlign="center" verticalGap="8">
+					<mx:Label id="publishDisplay" width="320" height="240" opaqueBackground="#000000"/>
+					<mx:Button label="Publish" id="publishBtn" click="publish()"/>
+				</mx:VBox>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="265" y="389" label="View &gt;" click="currentState='view'"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="view">
+			<mx:AddChild position="lastChild">
+				<mx:VBox x="10" y="101" height="280" horizontalAlign="center" verticalGap="8">
+					<mx:Label id="viewDisplay" width="320" height="240" opaqueBackground="#000000"/>
+					<mx:Button label="View" id="viewBtn" click="view()"/>
+				</mx:VBox>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="10" y="389" label="&lt; Publish" click="currentState='publish'"/>
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+
+	<mx:VBox x="10" y="40" horizontalAlign="center" verticalGap="4" id="vbox1">
+		<mx:TextInput id="location" text="rtmp://localhost/streaming" width="240"/>
+		<mx:TextInput id="streamName" text="lab"/>	
 	</mx:VBox>
-	<mx:Label x="10" y="10" text="Publisher" fontWeight="bold" fontSize="16"/>
+
+	<mx:Label x="10" y="10" text="{currentState=='publish'?'Publisher':'View'}" fontWeight="bold" fontSize="16"/>		
+
+	<mx:Button x="255" y="40" label="Connect" id="connectBtn" click="connect()"/>
+
 </mx:Application>

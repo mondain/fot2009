@@ -19,8 +19,6 @@ public class Application extends MultiThreadedApplicationAdapter implements
 
 	private static ApplicationContext applicationContext;
 	
-	private static boolean debug = false;
-	
 	public Application() {
 		log.info("Instanced");
 	}

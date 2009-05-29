@@ -6,6 +6,7 @@ import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.adapter.MultiThreadedApplicationAdapter;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.IScope;
+import org.red5.server.api.Red5;
 import org.red5.server.api.service.ServiceUtils;
 import org.red5.server.api.stream.IStreamAwareScopeHandler;
 import org.slf4j.Logger;
@@ -86,4 +87,9 @@ public class Application extends MultiThreadedApplicationAdapter implements
 		conn.removeAttributes();
 	}
 
+	public void echo(String msg) {
+		ServiceUtils.invokeOnConnection(Red5.getConnectionLocal(), "onMessage", new Object[]{msg});
+	}
+	
+	
 }

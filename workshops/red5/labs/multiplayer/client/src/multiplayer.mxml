@@ -28,5 +28,6 @@
 	<mx:TextInput x="81" y="71" text="{userName}" data="{userName}"/>
 	
 	<mx:Label x="10" y="73" text="Chatname" fontWeight="bold"/>
+	<mx:Button x="8" y="310" label="Echo" click="echo(event)"/>
 
 </mx:Application>

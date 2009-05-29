@@ -1,14 +1,12 @@
 
+import com.flashontap.lab.multiplayer.*;
+
 import flash.events.*;
 import flash.media.*;
 import flash.net.*;
 
-import mx.collections.ArrayCollection;
-import mx.controls.Alert;
 import mx.core.*;
 import mx.events.*;
-
-import com.flashontap.lab.multiplayer.*;
 
 private var nc:NetConnection;
 private var ns:NetStream;
@@ -147,6 +145,10 @@ private function sendChat():void {
 
 private function recvChat(msg:ChatMessage):void {
 	chatIn.htmlText += msg.toHtmlString();
+}
+
+private function echo(evt:MouseEvent):void {
+	nc.call("echo", null, chatOut.text);
 }
 
 public function securityErrorHandler(e:SecurityErrorEvent):void {
